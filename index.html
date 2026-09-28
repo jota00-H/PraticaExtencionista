@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Consulta gratuita: descubra se você pode receber o salário-maternidade do INSS. Nenhum dado é coletado.">
+<meta name="description" content="Consulta gratuita: descubra se você pode receber o salário-maternidade ou o salário-paternidade do INSS. Nenhum dado é coletado.">
 <meta name="robots" content="noindex">
 <title>Salário-Maternidade: Consulta</title>
 </head>
@@ -136,13 +136,13 @@ footer{margin-top:28px;font-size:.8rem;color:var(--muted);border-top:1px solid v
    ============================================================ */
 const R = {
   R01:{t:"Não há carência para o salário-maternidade, para nenhuma categoria de segurada.", f:"STF, ADIs 2.110 e 2.111 (inconstitucionalidade do art. 25, III, da Lei 8.213/91); IN PRES/INSS 188/2025 (aplicação a requerimentos desde 05/04/2024)"},
-  R02:{t:"É preciso ter a qualidade de segurada na data do parto, da adoção ou do aborto.", f:"Lei 8.213/91, arts. 11, 13, 15 e 71"},
-  R03:{t:"Quem para de contribuir ou de trabalhar continua protegida por 12 meses (período de graça).", f:"Lei 8.213/91, art. 15, II"},
-  R04:{t:"O período de graça sobe para 24 meses para quem tem mais de 120 contribuições sem ter perdido a qualidade de segurada.", f:"Lei 8.213/91, art. 15, § 1º"},
-  R05:{t:"O período de graça ganha mais 12 meses para quem está desempregada e consegue comprovar a situação.", f:"Lei 8.213/91, art. 15, § 2º"},
-  R06:{t:"A contribuinte facultativa fica protegida por 6 meses depois de parar de pagar.", f:"Lei 8.213/91, art. 15, VI"},
+  R02:{t:"É preciso ter a qualidade de segurado(a) na data do parto, da adoção ou do aborto.", f:"Lei 8.213/91, arts. 11, 13, 15 e 71"},
+  R03:{t:"Quem para de contribuir ou de trabalhar continua protegido(a) por 12 meses (período de graça).", f:"Lei 8.213/91, art. 15, II"},
+  R04:{t:"O período de graça sobe para 24 meses para quem tem mais de 120 contribuições sem ter perdido a qualidade de segurado(a).", f:"Lei 8.213/91, art. 15, § 1º"},
+  R05:{t:"O período de graça ganha mais 12 meses para quem está desempregado(a) e consegue comprovar a situação.", f:"Lei 8.213/91, art. 15, § 2º"},
+  R06:{t:"O(a) contribuinte facultativo(a) fica protegido(a) por 6 meses depois de parar de pagar.", f:"Lei 8.213/91, art. 15, VI"},
   R07:{t:"A proteção termina no dia seguinte ao vencimento da contribuição do mês seguinte ao fim do período de graça.", f:"Lei 8.213/91, art. 15, § 4º; Decreto 3.048/99, art. 14"},
-  R08:{t:"O benefício dura 120 dias e pode começar até 28 dias antes do parto.", f:"Lei 8.213/91, art. 71"},
+  R08:{t:"O salário-maternidade dura 120 dias e pode começar até 28 dias antes do parto.", f:"Lei 8.213/91, art. 71"},
   R09:{t:"Na adoção ou guarda para fins de adoção de criança de até 12 anos, o benefício é de 120 dias e é pago pelo INSS.", f:"Lei 8.213/91, art. 71-A (Lei 12.873/2013)"},
   R10:{t:"Em caso de aborto não criminoso, comprovado por atestado médico, o benefício é de 2 semanas.", f:"Decreto 3.048/99, art. 93, § 5º"},
   R11:{t:"Parto a partir da 23ª semana de gestação, inclusive de natimorto, dá direito aos 120 dias.", f:"Decreto 3.048/99, art. 93; IN PRES/INSS 128/2022"},
@@ -157,33 +157,57 @@ const R = {
   R20:{t:"Se mãe ou bebê ficam internados por mais de 2 semanas após o parto, o benefício pode começar a contar da alta.", f:"STF, ADI 6.327"},
   R21:{t:"A gestante com carteira assinada não pode ser demitida sem justa causa desde a confirmação da gravidez até 5 meses após o parto.", f:"ADCT, art. 10, II, b"},
   R22:{t:"Na gravidez de risco com afastamento médico, pode caber auxílio por incapacidade temporária (em regra, exige 12 contribuições e perícia).", f:"Lei 8.213/91, arts. 25, I, e 59"},
-  R23:{t:"Salário-família: pago à empregada, doméstica ou avulsa de baixa renda por filho de até 14 anos.", f:"Lei 8.213/91, arts. 65 e 66"},
+  R23:{t:"Salário-família: pago a empregado(a), doméstico(a) ou avulso(a) de baixa renda por filho de até 14 anos.", f:"Lei 8.213/91, arts. 65 e 66"},
   R24:{t:"Sem proteção do INSS, a família pode buscar a assistência social: CadÚnico e Bolsa Família (que tem adicional para gestantes e nutrizes) no CRAS.", f:"Lei 8.742/93; Lei 14.601/2023"},
-  R25:{t:"A partir de 1º/01/2027, o pai segurado (inclusive autônomo e MEI) passa a ter salário-paternidade: 10 dias em 2027, 15 em 2028 e 20 a partir de 2029.", f:"Lei 15.371/2026"},
+  R25:{t:"A partir de 1º/01/2027, o pai segurado (inclusive autônomo e MEI) passa a ter salário-paternidade.", f:"Lei 15.371/2026 (vigência em 1º/01/2027)"},
   R26:{t:"É possível começar a contribuir durante a gravidez: sem carência, a proteção começa com a primeira contribuição paga em dia.", f:"Lei 8.213/91, arts. 11 a 13 e 27, II; STF, ADIs 2.110 e 2.111"},
-  R27:{t:"A autônoma precisa comprovar que de fato exercia a atividade remunerada.", f:"Lei 8.213/91, art. 11, V; parecer da PFE-INSS sobre a ADI 2.110"}
+  R27:{t:"Quem se declara autônomo(a) precisa comprovar que de fato exercia a atividade remunerada.", f:"Lei 8.213/91, art. 11, V; parecer da PFE-INSS sobre a ADI 2.110"},
+  R28:{t:"O salário-paternidade segue, no que couber, as mesmas regras do salário-maternidade. Para quem não é empregado de empresa, é pago diretamente pelo INSS.", f:"Lei 8.213/91, arts. 73-A, 73-B e 73-E (incluídos pela Lei 15.371/2026)"},
+  R29:{t:"Duração da licença e do salário-paternidade: 10 dias a partir de 2027, 15 dias a partir de 2028 e 20 dias a partir de 2029 (esta última etapa depende do cumprimento de metas fiscais).", f:"Lei 15.371/2026, art. 11"},
+  R30:{t:"Para nascimentos até 31/12/2026, vale a regra antiga: 5 dias de licença só para quem tem carteira assinada, mais 15 dias se a empresa for do Programa Empresa Cidadã.", f:"CF, art. 7º, XIX; ADCT, art. 10, § 1º; Lei 11.770/2008"},
+  R31:{t:"O empregado deve avisar a empresa com pelo menos 30 dias de antecedência, levando o atestado com a data provável do parto. Se o parto for antecipado, o afastamento é imediato.", f:"Lei 15.371/2026, art. 3º"},
+  R32:{t:"O pai empregado não pode ser demitido sem justa causa desde o início da licença até 1 mês depois do fim. Se for demitido depois do aviso e antes da licença, a indenização é em dobro.", f:"Lei 15.371/2026, art. 4º"},
+  R33:{t:"O empregado pode emendar as férias no fim da licença-paternidade, se pedir com 30 dias de antecedência da data provável do parto.", f:"CLT, art. 134, §§ 4º e 5º"},
+  R34:{t:"Durante a licença, o pai precisa se afastar do trabalho, não pode ter atividade remunerada e deve participar dos cuidados com a criança.", f:"Lei 15.371/2026, art. 2º, §§ 1º e 2º"},
+  R35:{t:"Se a mãe não consta no registro de nascimento, ou se só o pai adota, o salário-paternidade equivale ao salário-maternidade, inclusive na duração.", f:"Lei 8.213/91, art. 73-B, § 3º; CLT, art. 392-D"},
+  R36:{t:"Se a mãe (ou o pai) que tinha direito ao benefício falece, quem assume a criança recebe pelo período que faltava, se for segurado. O pedido deve ser feito até o fim do benefício original.", f:"Lei 8.213/91, art. 71-B"},
+  R37:{t:"O salário-paternidade é suspenso, cessado ou negado quando há violência doméstica ou abandono material pelo pai.", f:"Lei 15.371/2026, art. 2º, § 3º; Lei 8.213/91, art. 73-H"},
+  R38:{t:"Para o empregado de empresa, a própria empresa paga o salário-paternidade e depois é reembolsada.", f:"Lei 8.213/91, art. 73-D"},
+  R39:{t:"O homem que adota sozinho já tem direito hoje ao salário-maternidade de 120 dias, pago pelo INSS.", f:"Lei 8.213/91, art. 71-A (Lei 12.873/2013)"}
 };
 
 /* ============================================================
    PERGUNTAS
    ============================================================ */
+const PAI = s => s.evento==="pai";
+const g = (s,m,f) => PAI(s)?m:f; // concordância de gênero
 const Q = [
   {id:"evento", t:"O que está acontecendo com você?", type:"one", opts:[
     ["gestante","Estou grávida"],
     ["nasceu","Meu bebê já nasceu","Vale também se o bebê nasceu sem vida a partir da 23ª semana."],
     ["adocao","Adotei ou tenho a guarda para adoção"],
-    ["aborto","Tive um aborto não criminoso","Espontâneo ou nos casos permitidos em lei."]
+    ["aborto","Tive um aborto não criminoso","Espontâneo ou nos casos permitidos em lei."],
+    ["pai","Sou o pai (ou vou ser)","Veja a licença e o salário-paternidade."]
   ]},
-  {id:"data", type:"date", t:s=>({gestante:"Qual é a data prevista para o parto?",nasceu:"Em que data o bebê nasceu?",adocao:"Em que data saiu a adoção ou a guarda?",aborto:"Em que data aconteceu?"})[s.evento],
-    help:s=>s.evento==="gestante"?"Use a data prevista que está no seu cartão da gestante ou no ultrassom.":"Se não lembrar o dia exato, coloque uma data aproximada."},
-  {id:"idade", show:s=>s.evento==="adocao", t:"A criança tinha até 12 anos na data da adoção ou da guarda?", type:"one", opts:[["sim","Sim, até 12 anos"],["nao","Não, tinha mais de 12 anos"]]},
-  {id:"trabalho", t:"Qual destas situações é a sua?", help:"Pense na sua situação na data do parto (ou na data prevista).", type:"one", opts:[
-    ["autonoma","Trabalho por conta própria","Manicure, diarista, costureira, vendedora, cuidadora, motorista de aplicativo…"],
-    ["mei","Sou MEI","Tenho CNPJ de microempreendedora individual."],
-    ["facultativa","Não tenho renda própria, mas pago o INSS","Dona de casa, estudante ou desempregada que contribui como facultativa."],
+  {id:"psit", show:PAI, t:"Qual é a sua situação?", type:"one", opts:[
+    ["nasc","Meu filho vai nascer ou já nasceu"],
+    ["adocao","Vamos adotar (eu e a mãe ou outra pessoa)"],
+    ["adosolo","Vou adotar ou adotei sozinho"],
+    ["semmae","A mãe não consta no registro de nascimento"],
+    ["faleceu","A mãe da criança faleceu"]
+  ]},
+  {id:"data", type:"date",
+    t:s=>{ if(PAI(s)) return ["adocao","adosolo"].includes(s.psit)?"Em que data saiu (ou deve sair) a adoção ou a guarda?":"Qual é a data prevista ou a data do nascimento?";
+      return ({gestante:"Qual é a data prevista para o parto?",nasceu:"Em que data o bebê nasceu?",adocao:"Em que data saiu a adoção ou a guarda?",aborto:"Em que data aconteceu?"})[s.evento]; },
+    help:s=>(s.evento==="gestante"||PAI(s))?"Use a data prevista que está no cartão da gestante ou no ultrassom.":"Se não lembrar o dia exato, coloque uma data aproximada."},
+  {id:"idade", show:s=>s.evento==="adocao"||(PAI(s)&&s.psit==="adosolo"), t:"A criança tinha até 12 anos na data da adoção ou da guarda?", type:"one", opts:[["sim","Sim, até 12 anos"],["nao","Não, tinha mais de 12 anos"]]},
+  {id:"trabalho", t:"Qual destas situações é a sua?", help:"Pense na sua situação na data do nascimento (ou na data prevista).", type:"one", opts:s=>[
+    ["autonoma","Trabalho por conta própria", g(s,"Pedreiro, eletricista, vendedor, motorista de aplicativo…","Manicure, diarista, costureira, vendedora, cuidadora, motorista de aplicativo…")],
+    ["mei",g(s,"Sou MEI","Sou MEI"),"Tenho CNPJ de microempreendedor(a) individual."],
+    ["facultativa","Não tenho renda própria, mas pago o INSS", g(s,"Estudante ou desempregado que contribui como facultativo.","Dona de casa, estudante ou desempregada que contribui como facultativa.")],
     ["rural","Trabalho na roça ou na pesca com a minha família","Agricultura familiar, pesca artesanal, extrativismo."],
     ["exclt","Tinha carteira assinada, mas saí do emprego"],
-    ["domestica","Sou empregada doméstica com carteira assinada"],
+    ["domestica",g(s,"Sou empregado doméstico com carteira assinada","Sou empregada doméstica com carteira assinada")],
     ["clt","Tenho carteira assinada em uma empresa"],
     ["nada","Não trabalho com registro e não pago o INSS"]
   ]},
@@ -194,8 +218,8 @@ const Q = [
     t:s=>s.trabalho==="exclt"?"Qual foi o último mês em que você trabalhou com carteira assinada?":"Qual foi o último mês que você pagou?",
     help:s=>s.trabalho==="exclt"?"Está na sua carteira de trabalho (física ou digital).":"É o mês de referência (competência) do último boleto pago."},
   {id:"c120", show:s=>s.trabalho==="exclt"||(["autonoma","mei"].includes(s.trabalho)&&s.paga==="parei"), t:"Você tem mais de 120 contribuições (cerca de 10 anos) sem ter ficado mais de um ano sem contribuir?", help:"Você pode conferir no extrato do CNIS, no Meu INSS.", type:"one", opts:[["sim","Sim"],["nao","Não"],["naosei","Não sei"]]},
-  {id:"desemp", show:s=>s.trabalho==="exclt", t:"Depois que saiu, você continuou sem emprego?", help:"Por exemplo, se recebeu seguro-desemprego ou tem outra forma de comprovar.", type:"one", opts:[["sim","Sim, continuei desempregada"],["nao","Não, voltei a trabalhar"]]},
-  {id:"saida", show:s=>s.trabalho==="exclt", t:"Como foi a sua saída do emprego?", type:"one", opts:[
+  {id:"desemp", show:s=>s.trabalho==="exclt", t:"Depois que saiu, você continuou sem emprego?", help:"Por exemplo, se recebeu seguro-desemprego ou tem outra forma de comprovar.", type:"one", opts:s=>[["sim",g(s,"Sim, continuei desempregado","Sim, continuei desempregada")],["nao","Não, voltei a trabalhar"]]},
+  {id:"saida", show:s=>s.trabalho==="exclt"&&!PAI(s), t:"Como foi a sua saída do emprego?", type:"one", opts:[
     ["antes","Saí antes de ficar grávida"],["semjusta","Fui demitida sem justa causa durante a gravidez"],["outra","Pedi demissão ou saí por justa causa durante a gravidez"]
   ]},
   {id:"emdia", show:s=>["autonoma","mei","facultativa"].includes(s.trabalho)&&s.paga!=="nunca", t:"Os pagamentos foram feitos no prazo?", help:"O prazo é até o dia 15 do mês seguinte (ou o vencimento do DAS).", type:"one", opts:[
@@ -206,14 +230,20 @@ const Q = [
   ]},
   {id:"cad", show:s=>s.trabalho==="facultativa"&&s.plano==="5", t:"Sua inscrição no CadÚnico foi atualizada nos últimos 2 anos?", type:"one", opts:[["sim","Sim"],["nao","Não"],["naosei","Não sei"]]},
   {id:"exerce", show:s=>["autonoma","mei"].includes(s.trabalho)&&s.paga!=="nunca", t:"Você realmente trabalhava nessa atividade?", help:"O INSS pode pedir provas de que o trabalho existia, como notas, recibos, conversas com clientes ou extratos.", type:"one", opts:[["sim","Sim, e consigo mostrar"],["pouco","Sim, mas tenho poucas provas"],["nao","Não trabalhava"]]},
-  {id:"ruraltrab", show:s=>s.trabalho==="rural", t:"Você trabalhava na roça ou na pesca antes do parto, com a sua família e sem empregados permanentes?", type:"one", opts:[["sim","Sim"],["nao","Não"]]},
-  {id:"ruraldoc", show:s=>s.trabalho==="rural"&&s.ruraltrab==="sim", t:"Você tem documentos que mostram esse trabalho?", help:"Bloco ou notas de produtor rural, contrato de arrendamento ou parceria, CAF (antiga DAP), registro de pescadora, declaração do sindicato, documentos da terra.", type:"one", opts:[["sim","Sim, vários"],["alguns","Tenho poucos"],["nao","Não tenho"]]},
-  {id:"extra", type:"multi", t:"Marque o que também vale para você", help:"Isso ajuda a indicar outros direitos. Pode deixar tudo em branco.", opts:[
+  {id:"ruraltrab", show:s=>s.trabalho==="rural", t:"Você trabalhava na roça ou na pesca antes do nascimento, com a sua família e sem empregados permanentes?", type:"one", opts:[["sim","Sim"],["nao","Não"]]},
+  {id:"ruraldoc", show:s=>s.trabalho==="rural"&&s.ruraltrab==="sim", t:"Você tem documentos que mostram esse trabalho?", help:"Bloco ou notas de produtor rural, contrato de arrendamento ou parceria, CAF (antiga DAP), registro de pesca, declaração do sindicato, documentos da terra.", type:"one", opts:[["sim","Sim, vários"],["alguns","Tenho poucos"],["nao","Não tenho"]]},
+  {id:"paisit", show:s=>["gestante","nasceu","adocao"].includes(s.evento), t:"E o pai da criança?", help:"Esta pergunta é opcional e você pode responder sozinha. Serve para mostrar os direitos dele também.", type:"one", opts:[
+    ["clt","Tem carteira assinada em uma empresa"],
+    ["autonomo","Trabalha por conta própria ou é MEI e paga o INSS"],
+    ["naopaga","Trabalha, mas não paga o INSS"],
+    ["naosei","Não sei"],
+    ["pular","Prefiro não responder ou não se aplica"]
+  ]},
+  {id:"extra", show:s=>!PAI(s), type:"multi", t:"Marque o que também vale para você", help:"Isso ajuda a indicar outros direitos. Pode deixar tudo em branco.", opts:[
     ["risco","Gravidez de risco e o médico mandou parar de trabalhar"],
     ["internacao","Eu ou o bebê ficamos internados mais de 2 semanas depois do parto"],
     ["baixarenda","A renda da minha família é baixa"],
-    ["filhos","Tenho carteira assinada e filhos de até 14 anos"],
-    ["pai","O pai da criança trabalha e contribui para o INSS"]
+    ["filhos","Tenho carteira assinada e filhos de até 14 anos"]
   ]}
 ];
 
@@ -231,6 +261,8 @@ const addDays = (d,n)=>{const x=new Date(d); x.setDate(x.getDate()+n); return x;
 const addYears = (d,n)=>{const x=new Date(d); x.setFullYear(x.getFullYear()+n); return x;};
 const today = ()=>{const t=new Date(); t.setHours(0,0,0,0); return t;};
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const LEI_PAT = new Date(2027,0,1);
+function diasPat(d){ const y=d.getFullYear(); if(y<2027) return 5; if(y===2027) return 10; if(y===2028) return 15; return 20; }
 
 function intro(){
   pos=-1;
@@ -245,6 +277,10 @@ function intro(){
       <h3>Desde 2024 não é mais preciso ter 10 contribuições</h3>
       <p class="muted" style="margin:0">O STF derrubou essa exigência para autônomas, facultativas e trabalhadoras rurais. O que importa agora é estar protegida pelo INSS na data do parto.</p>
     </div>
+    <div class="card small">
+      <h3>Pai também pode consultar</h3>
+      <p class="muted" style="margin:0">A partir de 2027, o pai que contribui para o INSS, mesmo autônomo ou MEI, passa a ter salário-paternidade. Escolha "Sou o pai" na primeira pergunta.</p>
+    </div>
     <button class="btn" id="start" type="button">Começar</button>
   </div>`;
   document.getElementById("start").onclick=()=>{S={};pos=0;render();};
@@ -254,11 +290,12 @@ function render(){
   const qs = visible();
   if(pos>=qs.length){ return result(); }
   const q = qs[pos];
+  const opts = val(q.opts);
   const pct = Math.round((pos)/(qs.length)*100);
   let body = "";
   if(q.type==="one"||q.type==="multi"){
     const cur = S[q.id] || (q.type==="multi"?[]:null);
-    body = `<div class="opts" role="${q.type==="one"?"radiogroup":"group"}">` + q.opts.map(([v,l,h],i)=>{
+    body = `<div class="opts" role="${q.type==="one"?"radiogroup":"group"}">` + opts.map(([v,l,h],i)=>{
       const sel = q.type==="multi" ? cur.includes(v) : cur===v;
       return `<label class="opt ${q.type==="multi"?"multi":""} ${sel?"sel":""}" for="o_${q.id}_${i}">
         <input id="o_${q.id}_${i}" type="${q.type==="multi"?"checkbox":"radio"}" name="${q.id}" value="${v}" ${sel?"checked":""}>
@@ -273,6 +310,7 @@ function render(){
       <div><label for="f_m">Mês</label><select id="f_m"><option value="">Escolha</option>${MESES.map((m,i)=>`<option value="${String(i+1).padStart(2,"0")}" ${mm==String(i+1).padStart(2,"0")?"selected":""}>${m}</option>`).join("")}</select></div>
       <div><label for="f_y">Ano</label><select id="f_y"><option value="">Escolha</option>${Array.from({length:12},(_,i)=>y0-i).map(y=>`<option ${yy==y?"selected":""}>${y}</option>`).join("")}</select></div></div>`;
   }
+  const last = pos===qs.length-1;
   app.innerHTML = `
     <div class="progress" aria-hidden="true"><i style="width:${pct}%"></i></div>
     <div class="eyebrow">Pergunta ${pos+1} de ${qs.length}</div>
@@ -282,7 +320,7 @@ function render(){
     <div class="err" id="err" hidden></div>
     <div class="nav">
       <button class="btn ghost" id="back" type="button">Voltar</button>
-      <button class="btn" id="next" type="button">${q.type==="multi"?"Ver resultado":"Continuar"}</button>
+      <button class="btn" id="next" type="button">${last?"Ver resultado":"Continuar"}</button>
     </div>`;
   document.getElementById("qt").focus({preventScroll:true});
   window.scrollTo(0,0);
@@ -304,7 +342,6 @@ function render(){
 }
 function clearDependents(id){
   const order = Q.map(q=>q.id), i = order.indexOf(id);
-  // respostas posteriores que deixaram de fazer sentido são descartadas
   order.slice(i+1).forEach(k=>{ const q=Q.find(x=>x.id===k); if(q.show && !q.show(S)) delete S[k]; });
 }
 
@@ -312,141 +349,165 @@ function clearDependents(id){
    MOTOR DE REGRAS
    ============================================================ */
 function graceEnd(){
-  // retorna a data até a qual a proteção se mantém, a partir do último mês (competência)
   const [y,m] = S.ultimo.split("-").map(Number);
-  let g = S.trabalho==="facultativa" ? 6 : 12;
+  let gm = S.trabalho==="facultativa" ? 6 : 12;
   const used = [S.trabalho==="facultativa"?"R06":"R03"];
-  if(S.c120==="sim" && S.trabalho!=="facultativa"){ g+=12; used.push("R04"); }
-  if(S.trabalho==="exclt" && S.desemp==="sim"){ g+=12; used.push("R05"); }
-  // perda no dia 16 do 2º mês após o fim do período de graça (art. 15, § 4º)
-  const end = new Date(y, (m-1)+g+2, 15);
+  if(S.c120==="sim" && S.trabalho!=="facultativa"){ gm+=12; used.push("R04"); }
+  if(S.trabalho==="exclt" && S.desemp==="sim"){ gm+=12; used.push("R05"); }
+  const end = new Date(y, (m-1)+gm+2, 15); // perda no dia 16 do 2º mês após o fim do período de graça
   used.push("R07");
-  return {end, g, used};
+  return {end, g:gm, used};
 }
 
-function evaluate(){
-  const out = {level:"ok", title:"", lead:"", reasons:[], docs:[], where:[], value:null, dates:[], extra:[], rulesUsed:new Set()};
-  const why = (txt, rule, cls="") => { out.reasons.push({txt,rule,cls}); (Array.isArray(rule)?rule:[rule]).forEach(r=>out.rulesUsed.add(r)); };
+function newOut(){ return {level:"ok", title:"", lead:"", reasons:[], docs:[], where:[], value:null, dates:[], extra:[], pai:[], cond:[]}; }
+function helpers(out){
+  const why = (txt, rule, cls="") => out.reasons.push({txt,rule,cls});
   const lvl = l => { const rank={ok:0,info:1,warn:2,no:3}; if(rank[l]>rank[out.level]) out.level=l; };
-  const ev = parseDate(S.data), t = today();
-  const isFuture = ev > t;
+  return {why,lvl};
+}
 
+/* Verifica a qualidade de segurado(a) — usada para mãe e pai. Retorna true/false. */
+function qualidade(out, ev, isFuture){
+  const {why,lvl} = helpers(out); const cat=S.trabalho; const p=PAI(S);
+  const prot = p?"protegido":"protegida";
+  if(cat==="clt"||cat==="domestica"){ return true; }
+  if(["autonoma","mei","facultativa"].includes(cat)){
+    let ok=true;
+    if(S.paga==="nunca"){
+      ok=false;
+      if(isFuture){ lvl("warn"); why(`Hoje você ainda não está ${prot} pelo INSS. Como não há carência, se começar a contribuir antes do nascimento e pagar em dia, passa a ter direito.`, ["R02","R26"],"w"); }
+      else { lvl("no"); why(`Na data do nascimento você não contribuía para o INSS, então não estava ${prot}. Pagar agora, com atraso, não resolve.`, ["R02","R18"],"n"); }
+    } else if(S.paga==="sim"){
+      why(`Você está contribuindo, então está ${prot} pelo INSS.`, "R02","o");
+    } else {
+      const gr = graceEnd();
+      if(ev <= gr.end) why(`Mesmo tendo parado, você continua ${prot} até cerca de ${fmt(gr.end)} (período de graça de ${gr.g} meses). A data está dentro desse prazo.`, ["R02",...gr.used],"o");
+      else {
+        ok=false;
+        if(isFuture){ lvl("warn"); why(`Sua proteção vai até cerca de ${fmt(gr.end)}, antes da data prevista. Se voltar a pagar em dia antes disso, continua ${prot}.`, ["R02",...gr.used,"R26"],"w"); }
+        else { lvl("no"); why(`Sua proteção terminou por volta de ${fmt(gr.end)}, antes da data do nascimento.`, ["R02",...gr.used],"n"); }
+        if(S.c120==="naosei") why("Se você tiver mais de 120 contribuições, o prazo pode ser 12 meses maior. Confira no extrato do CNIS.", "R04","w");
+      }
+    }
+    if(S.emdia==="atraso"||S.emdia==="naosei"){ lvl("warn"); why("Pagamentos feitos com atraso podem não ser aceitos, principalmente os pagos depois do nascimento. O INSS vai conferir as datas de pagamento.", "R18","w"); }
+    if(S.plano==="5" && S.cad!=="sim"){ lvl("warn"); why("Quem paga 5% precisa estar com o CadÚnico atualizado. Sem isso, o INSS pode não aceitar as contribuições até que sejam complementadas.", "R19","w"); }
+    if(S.plano==="naosei") why("Se você paga 5% (baixa renda), confira se o seu CadÚnico está atualizado.", "R19","w");
+    if(S.exerce==="pouco"){ lvl("warn"); why("O INSS pode pedir provas de que você exercia a atividade. Junte o máximo que conseguir.", "R27","w"); }
+    if(S.exerce==="nao"){ lvl("warn"); why("Se você não exercia atividade remunerada, as contribuições podem ser tratadas como de facultativo(a). Isso não impede o benefício, mas o INSS pode reenquadrar.", "R27","w"); }
+    return ok;
+  }
+  if(cat==="exclt"){
+    const gr = graceEnd();
+    if(ev <= gr.end){ why(`Depois de sair do emprego, você continua ${prot} até cerca de ${fmt(gr.end)} (período de graça de ${gr.g} meses). A data está dentro desse prazo.`, ["R02",...gr.used],"o"); why("Nesse caso, quem paga é o INSS, e não a antiga empresa.", p?"R28":"R16","o"); return true; }
+    if(isFuture){ lvl("warn"); why(`Sua proteção vai até cerca de ${fmt(gr.end)}, antes da data prevista. Se começar a contribuir em dia antes disso, mantém a proteção.`, ["R02",...gr.used,"R26"],"w"); }
+    else { lvl("no"); why(`Sua proteção terminou por volta de ${fmt(gr.end)}, antes da data do nascimento.`, ["R02",...gr.used],"n"); }
+    if(S.c120==="naosei") why("Se você tiver mais de 120 contribuições, o prazo pode ser 12 meses maior. Confira no extrato do CNIS.", "R04","w");
+    return false;
+  }
+  if(cat==="rural"){
+    if(S.ruraltrab==="nao"){ lvl("no"); why("Para receber como trabalhador(a) rural, é preciso estar trabalhando na atividade rural em regime familiar.", "R15","n"); return false; }
+    if(S.ruraldoc==="sim") why("Como trabalhador(a) rural em regime familiar, você não precisa ter contribuído. Precisa comprovar o trabalho no campo.", ["R15","R01"],"o");
+    else { lvl("warn"); why(S.ruraldoc==="alguns"?"Você tem poucos documentos. O INSS pode pedir mais provas do trabalho no campo, e às vezes aceita testemunhas em complemento.":"Sem documentos, é difícil comprovar o trabalho rural. Procure o sindicato rural ou a Defensoria para ajuda.", "R15","w"); }
+    why("O INSS e a Justiça ainda divergem sobre quantos meses de trabalho rural antes do nascimento é preciso comprovar. Leve documentos que cubram o maior período possível, de preferência os 10 a 12 meses anteriores.", "R15","w");
+    return true;
+  }
+  if(cat==="nada"){
+    if(isFuture){ lvl("warn"); why(`Hoje você não está ${prot} pelo INSS. Como não há carência, se começar a contribuir antes do nascimento (como facultativo(a), autônomo(a) ou MEI) e pagar em dia, passa a ter direito.`, ["R02","R26"],"w"); }
+    else { lvl("no"); why(`Na data do nascimento você não estava ${prot} pelo INSS.`, "R02","n"); }
+    return false;
+  }
+  return false;
+}
+
+function commonDocs(out){
+  const cat=S.trabalho;
+  if(["autonoma","mei","facultativa"].includes(cat)&&S.paga!=="nunca") out.docs.push("Comprovantes de pagamento das contribuições (guias GPS ou boletos DAS pagos)");
+  if(["autonoma","mei"].includes(cat)&&S.paga!=="nunca") out.docs.push("Provas de que você trabalhava: notas, recibos, conversas com clientes, fotos do trabalho, extratos");
+  if(cat==="mei") out.docs.push("Certificado da Condição de MEI (CCMEI)");
+  if(cat==="facultativa"&&S.plano==="5") out.docs.push("Comprovante do CadÚnico atualizado");
+  if(cat==="exclt"||cat==="domestica") out.docs.push("Carteira de trabalho (física ou digital) e, se tiver, o termo de rescisão");
+  if(cat==="exclt"&&S.desemp==="sim") out.docs.push("Comprovante de seguro-desemprego ou outro documento que mostre o desemprego");
+  if(cat==="rural") out.docs.push("Documentos do trabalho rural: bloco ou notas de produtor, contrato de arrendamento ou parceria, CAF/DAP, registro de pesca, declaração do sindicato, documentos da terra");
+}
+const inssSteps = (servico)=>[
+  "Abra o aplicativo ou o site Meu INSS (meu.inss.gov.br) e entre com a sua conta gov.br.",
+  `Toque em "Novo pedido" e busque por "${servico}".`,
+  "Preencha os dados e envie fotos legíveis dos documentos.",
+  "Acompanhe em \"Consultar pedidos\". Se o INSS pedir algo a mais, responda dentro do prazo.",
+  "Sem internet? Ligue 135 (segunda a sábado, das 7h às 22h) e faça o pedido por telefone."
+];
+function valorTexto(cat, pat){
+  const b = pat?"salário-paternidade":"benefício";
+  if(cat==="clt") return {txt:`A sua remuneração integral, paga pela empresa.`, rule:pat?"R38":"R12"};
+  if(cat==="domestica") return {txt:"O valor do seu último salário de contribuição (o salário registrado).", rule:pat?"R28":"R13"};
+  if(cat==="rural") return {txt:"1 salário mínimo.", rule:pat?"R28":"R15"};
+  return {txt:`A média das suas últimas 12 contribuições (dentro de até 15 meses), nunca menos que 1 salário mínimo. Para MEI, em regra, 1 salário mínimo.${pat?" O valor é proporcional aos dias de "+b+".":""}`, rule:pat?"R28":"R14"};
+}
+
+/* ---------- Resultado da MÃE ---------- */
+function evaluateMae(){
+  const out=newOut(); const {why,lvl}=helpers(out);
+  const ev = parseDate(S.data), t = today(), isFuture = ev > t || S.evento==="gestante";
+  const cat = S.trabalho;
   why("Não é exigido um número mínimo de contribuições.", "R01", "o");
-
-  // ---- tipo de evento
   if(S.evento==="adocao"){
     if(S.idade==="nao"){ lvl("no"); why("Pela regra atual do salário-maternidade, a adoção precisa ser de criança de até 12 anos.", "R09","n"); }
     else why("Adoção ou guarda de criança de até 12 anos dá direito a 120 dias, pagos pelo INSS.", "R09","o");
-  } else if(S.evento==="aborto"){
-    why("Em caso de aborto não criminoso, o benefício é de 2 semanas, com atestado médico.", "R10","o");
-  } else {
-    why("O benefício dura 120 dias, inclusive em caso de natimorto.", ["R08","R11"],"o");
-  }
+  } else if(S.evento==="aborto") why("Em caso de aborto não criminoso, o benefício é de 2 semanas, com atestado médico.", "R10","o");
+  else why("O benefício dura 120 dias, inclusive em caso de natimorto.", ["R08","R11"],"o");
 
-  // ---- prazo (prescrição)
   const limite = addYears(ev,5);
-  if(!isFuture && limite < t){ lvl("no"); why(`O evento foi há mais de 5 anos (${fmt(ev)}). As parcelas já prescreveram e o pedido não deve gerar pagamento.`, "R17","n"); }
+  if(ev <= t && limite < t){ lvl("no"); why(`O evento foi há mais de 5 anos (${fmt(ev)}). As parcelas já prescreveram e o pedido não deve gerar pagamento.`, "R17","n"); }
 
-  // ---- qualidade de segurada por categoria
-  const cat = S.trabalho;
   if(cat==="clt"){
     lvl("info"); out.title="Quem paga é a empresa";
     out.lead="Com carteira assinada em empresa, você recebe o salário-maternidade pela empresa, junto com a licença. Não precisa pedir ao INSS.";
     why("A empresa paga o benefício e depois é reembolsada pela Previdência.", "R12","o");
     why("Você não pode ser demitida sem justa causa desde a confirmação da gravidez até 5 meses após o parto.", "R21","o");
-  }
-  else if(cat==="domestica"){
-    why("Como empregada doméstica com carteira, você está protegida pelo INSS e recebe diretamente dele.", ["R02","R13"],"o");
-    out.value = {txt:"O valor do seu último salário de contribuição (o salário registrado).", rule:"R13"};
-    why("Você não pode ser demitida sem justa causa desde a confirmação da gravidez até 5 meses após o parto.", "R21","o");
-  }
-  else if(["autonoma","mei","facultativa"].includes(cat)){
-    if(S.paga==="nunca"){
-      if(isFuture || S.evento==="gestante"){
-        lvl("warn");
-        why("Hoje você ainda não está protegida pelo INSS. Mas, como não há carência, se começar a contribuir antes do parto e pagar em dia, você passa a ter direito.", ["R02","R26"],"w");
-      } else {
-        lvl("no");
-        why("Na data do evento você não contribuía para o INSS, então não tinha a qualidade de segurada. Pagar agora, com atraso, não resolve.", ["R02","R18"],"n");
-      }
-    } else if(S.paga==="sim"){
-      why("Você está contribuindo, então está protegida pelo INSS.", "R02","o");
-    } else {
-      const g = graceEnd();
-      if(ev <= g.end){ why(`Mesmo tendo parado, você continua protegida até cerca de ${fmt(g.end)} (período de graça de ${g.g} meses). A data do evento está dentro desse prazo.`, ["R02",...g.used],"o"); }
-      else {
-        if(isFuture){ lvl("warn"); why(`Sua proteção vai até cerca de ${fmt(g.end)}, antes da data do evento. Se voltar a pagar em dia antes disso (ou antes do parto), você continua protegida.`, ["R02",...g.used,"R26"],"w"); }
-        else { lvl("no"); why(`Sua proteção terminou por volta de ${fmt(g.end)}, antes da data do evento.`, ["R02",...g.used],"n"); }
-        if(S.c120==="naosei"){ why("Se você tiver mais de 120 contribuições, o prazo pode ser 12 meses maior. Confira no extrato do CNIS.", "R04","w"); }
-      }
-    }
-    if(S.emdia==="atraso"||S.emdia==="naosei"){ lvl("warn"); why("Pagamentos feitos com atraso podem não ser aceitos, principalmente os pagos depois do parto. O INSS vai conferir as datas de pagamento.", "R18","w"); }
-    if(S.plano==="5" && S.cad!=="sim"){ lvl("warn"); why("Quem paga 5% precisa estar com o CadÚnico atualizado. Sem isso, o INSS pode não aceitar as contribuições até que sejam complementadas.", "R19","w"); }
-    if(S.plano==="naosei"){ why("Se você paga 5% (baixa renda), confira se o seu CadÚnico está atualizado.", "R19","w"); }
-    if(S.exerce==="pouco"){ lvl("warn"); why("O INSS pode pedir provas de que você exercia a atividade. Junte o máximo que conseguir.", "R27","w"); }
-    if(S.exerce==="nao"){ lvl("warn"); why("Se você não exercia atividade remunerada, as contribuições podem ser tratadas como de facultativa. Isso não impede o benefício, mas o INSS pode reenquadrar.", "R27","w"); }
-    if(S.paga!=="nunca") out.value = {txt:"A média das suas últimas 12 contribuições (dentro de até 15 meses), nunca menos que 1 salário mínimo. Para a MEI, em regra, 1 salário mínimo.", rule:"R14"};
-  }
-  else if(cat==="exclt"){
-    const g = graceEnd();
-    if(ev <= g.end){ why(`Depois de sair do emprego, você continua protegida até cerca de ${fmt(g.end)} (período de graça de ${g.g} meses). A data do evento está dentro desse prazo.`, ["R02",...g.used],"o"); why("Nesse caso, quem paga é o INSS, e não a antiga empresa.", "R16","o"); }
-    else {
-      if(isFuture){ lvl("warn"); why(`Sua proteção vai até cerca de ${fmt(g.end)}, antes da data prevista. Se começar a contribuir em dia antes disso, você mantém a proteção.`, ["R02",...g.used,"R26"],"w"); }
-      else { lvl("no"); why(`Sua proteção terminou por volta de ${fmt(g.end)}, antes da data do evento.`, ["R02",...g.used],"n"); }
-      if(S.c120==="naosei") why("Se você tiver mais de 120 contribuições, o prazo pode ser 12 meses maior. Confira no extrato do CNIS.", "R04","w");
-    }
-    if(S.saida==="semjusta"){ lvl("warn"); why("Demissão sem justa causa durante a gravidez é proibida. Você pode ter direito à reintegração ou a uma indenização da empresa. Procure a Defensoria, o sindicato ou um advogado.", "R21","w"); }
-    out.value = {txt:"A média das suas últimas 12 contribuições (dentro de até 15 meses), nunca menos que 1 salário mínimo.", rule:"R14"};
-  }
-  else if(cat==="rural"){
-    if(S.ruraltrab==="nao"){ lvl("no"); why("Para receber como trabalhadora rural, é preciso estar trabalhando na atividade rural em regime familiar.", "R15","n"); }
-    else if(S.ruraldoc==="sim"){ why("Como trabalhadora rural em regime familiar, você não precisa ter contribuído. Precisa comprovar o trabalho no campo.", ["R15","R01"],"o"); }
-    else { lvl("warn"); why(S.ruraldoc==="alguns"?"Você tem poucos documentos. O INSS pode pedir mais provas do trabalho no campo, e às vezes aceita testemunhas em complemento.":"Sem documentos, é difícil comprovar o trabalho rural. Procure o sindicato rural ou a Defensoria para ajuda.", "R15","w"); }
-    if(S.ruraltrab==="sim") why("O INSS e a Justiça ainda divergem sobre quantos meses de trabalho rural antes do parto é preciso comprovar. Leve documentos que cubram o maior período possível, de preferência os 10 a 12 meses antes do parto.", "R15","w");
-    out.value = {txt:"1 salário mínimo.", rule:"R15"};
-  }
-  else if(cat==="nada"){
-    if(isFuture || S.evento==="gestante"){ lvl("warn"); why("Hoje você não está protegida pelo INSS. Como não há carência, se começar a contribuir antes do parto (como facultativa, autônoma ou MEI) e pagar em dia, você passa a ter direito.", ["R02","R26"],"w"); }
-    else { lvl("no"); why("Na data do evento você não estava protegida pelo INSS, então o salário-maternidade não é devido.", "R02","n"); }
+  } else {
+    qualidade(out, ev, isFuture);
+    if(cat==="domestica"){ why("Como empregada doméstica com carteira, você está protegida pelo INSS e recebe diretamente dele.", ["R02","R13"],"o"); why("Você não pode ser demitida sem justa causa desde a confirmação da gravidez até 5 meses após o parto.", "R21","o"); }
+    if(cat==="exclt"&&S.saida==="semjusta"){ lvl("warn"); why("Demissão sem justa causa durante a gravidez é proibida. Você pode ter direito à reintegração ou a uma indenização da empresa. Procure a Defensoria, o sindicato ou um advogado.", "R21","w"); }
+    if(cat!=="nada" && !(["autonoma","mei","facultativa"].includes(cat)&&S.paga==="nunca")) out.value = valorTexto(cat,false);
   }
 
-  // ---- datas
   if(cat!=="clt"){
     if(S.evento==="gestante"||S.evento==="nasceu"){
       const inicio = addDays(ev,-28);
-      out.dates.push({v:fmt(inicio), l: isFuture ? "Primeiro dia em que o benefício pode começar (com atestado médico)" : "O benefício podia começar a partir de 28 dias antes do parto", rule:"R08"});
+      out.dates.push({v:fmt(inicio), l: ev>t ? "Primeiro dia em que o benefício pode começar (com atestado médico)" : "O benefício podia começar a partir de 28 dias antes do parto"});
     }
-    out.dates.push({v:fmt(limite), l:"Prazo final para pedir e ainda receber (5 anos após o evento)", rule:"R17"});
-  }
-
-  // ---- documentos
-  if(cat!=="clt"){
+    out.dates.push({v:fmt(limite), l:"Prazo final para pedir e ainda receber (5 anos após o evento)"});
     out.docs.push("Documento com foto e CPF");
     if(S.evento==="gestante") out.docs.push("Atestado médico com a data prevista do parto (para pedir antes do nascimento) e, depois, a certidão de nascimento");
     if(S.evento==="nasceu") out.docs.push("Certidão de nascimento (ou certidão de natimorto)");
     if(S.evento==="adocao") out.docs.push("Termo de guarda para fins de adoção ou nova certidão de nascimento da criança");
     if(S.evento==="aborto") out.docs.push("Atestado médico que comprove o aborto não criminoso");
-    if(["autonoma","mei","facultativa"].includes(cat)&&S.paga!=="nunca") out.docs.push("Comprovantes de pagamento das contribuições (guias GPS ou boletos DAS pagos)");
-    if(["autonoma","mei"].includes(cat)&&S.paga!=="nunca") out.docs.push("Provas de que você trabalhava: notas, recibos, conversas com clientes, fotos do trabalho, extratos");
-    if(cat==="mei") out.docs.push("Certificado da Condição de MEI (CCMEI)");
-    if(cat==="facultativa"&&S.plano==="5") out.docs.push("Comprovante do CadÚnico atualizado");
-    if(cat==="exclt"||cat==="domestica") out.docs.push("Carteira de trabalho (física ou digital) e, se tiver, o termo de rescisão");
-    if(cat==="exclt"&&S.desemp==="sim") out.docs.push("Comprovante de seguro-desemprego ou outro documento que mostre o desemprego");
-    if(cat==="rural") out.docs.push("Documentos do trabalho rural: bloco ou notas de produtor, contrato de arrendamento ou parceria, CAF/DAP, registro de pescadora, declaração do sindicato, documentos da terra");
+    commonDocs(out);
     if(S.extra?.includes("internacao")) out.docs.push("Relatório de internação ou atestado de alta hospitalar");
-  }
+    out.where = inssSteps(`Salário-maternidade ${cat==="rural"?"rural":"urbano"}`);
+  } else out.where = ["Avise o RH da empresa e entregue o atestado médico ou a certidão de nascimento.","Se a empresa se recusar a pagar, procure o sindicato, a Defensoria ou um advogado."];
 
-  // ---- onde pedir
-  if(cat==="clt"){
-    out.where = ["Avise o RH da empresa e entregue o atestado médico ou a certidão de nascimento.","Se a empresa se recusar a pagar, procure o sindicato, a Defensoria ou um advogado."];
-  } else {
-    out.where = [
-      "Abra o aplicativo ou o site Meu INSS (meu.inss.gov.br) e entre com a sua conta gov.br.",
-      `Toque em "Novo pedido" e busque por "Salário-maternidade ${cat==="rural"?"rural":"urbano"}".`,
-      "Preencha os dados e envie fotos legíveis dos documentos.",
-      "Acompanhe em \"Consultar pedidos\". Se o INSS pedir algo a mais, responda dentro do prazo.",
-      "Sem internet? Ligue 135 (segunda a sábado, das 7h às 22h) e faça o pedido por telefone."
-    ];
+  // ---- E o pai?
+  const dp = diasPat(ev), novo = ev >= LEI_PAT;
+  if(S.paisit && S.paisit!=="pular"){
+    if(novo && S.evento==="gestante") out.pai.push({txt:`O bebê deve nascer em ${ev.getFullYear()}, já com a nova lei valendo. O pai estará entre os primeiros com direito ao salário-paternidade.`, rule:"R25"});
+    if(S.paisit==="clt"){
+      if(novo){
+        out.pai.push({txt:`Ele terá ${dp} dias de licença-paternidade, pagos pela empresa.`, rule:["R29","R38"]});
+        if(ev>t) out.pai.push({txt:`Ele precisa avisar a empresa até ${fmt(addDays(ev,-30))} (30 dias antes da data prevista), levando o atestado com a data provável do parto. Se quiser emendar as férias na licença, deve pedir no mesmo prazo.`, rule:["R31","R33"]});
+        out.pai.push({txt:"Ele não pode ser demitido sem justa causa do início da licença até 1 mês depois do fim.", rule:"R32"});
+      } else out.pai.push({txt:"Para nascimentos até 31/12/2026, ele tem 5 dias de licença pagos pela empresa (20 dias se a empresa for do Programa Empresa Cidadã).", rule:"R30"});
+    }
+    if(S.paisit==="autonomo"){
+      if(novo) out.pai.push({txt:`Se estiver protegido pelo INSS na data do nascimento, ele receberá o salário-paternidade diretamente do INSS por ${dp} dias. Precisa se afastar do trabalho nesse período e cuidar da criança.`, rule:["R28","R29","R34"]});
+      else out.pai.push({txt:"Para nascimentos até 31/12/2026, o pai autônomo ou MEI ainda não tem licença paga. A partir de 1º/01/2027, passa a ter.", rule:["R30","R25"]});
+    }
+    if(S.paisit==="naopaga"){
+      out.pai.push({txt: novo?`Sem contribuir para o INSS, ele não terá salário-paternidade. Se ele começar a pagar em dia antes do nascimento, passa a ter ${dp} dias.`:"Sem carteira assinada, ele não tem licença paga para nascimentos até 31/12/2026.", rule: novo?["R28","R26"]:"R30"});
+      out.pai.push({txt:`Se o orçamento da família só permite uma contribuição, priorize a sua: são 120 dias de benefício para você, contra ${novo?dp:0} dias para ele.`, rule:["R08","R29"]});
+    }
+    if(S.paisit==="naosei") out.pai.push({txt:"A partir de 1º/01/2027, o pai que contribui para o INSS, inclusive autônomo ou MEI, tem direito ao salário-paternidade. Ele pode fazer esta consulta escolhendo \"Sou o pai\".", rule:["R25","R29"]});
+    out.pai.push({txt:"O pai também pode fazer esta consulta: basta escolher \"Sou o pai\" na primeira pergunta.", rule:"R28"});
   }
 
   // ---- outros direitos
@@ -455,51 +516,133 @@ function evaluate(){
   if(x.includes("risco")) out.extra.push({txt:"Na gravidez de risco com afastamento médico, pode caber o auxílio por incapacidade temporária antes do salário-maternidade. Em regra, exige 12 contribuições e perícia médica.", rule:"R22"});
   if(x.includes("filhos")) out.extra.push({txt:"Com carteira assinada e renda baixa, você pode receber salário-família por filho de até 14 anos. Peça ao empregador.", rule:"R23"});
   if(x.includes("baixarenda") || out.level==="no") out.extra.push({txt:"Procure o CRAS da sua cidade para fazer ou atualizar o CadÚnico. O Bolsa Família tem valor adicional para gestantes e mães que amamentam.", rule:"R24"});
-  if(x.includes("pai")) out.extra.push({txt: ev >= new Date(2027,0,1) ? "Como o evento é a partir de 2027, o pai segurado (inclusive autônomo ou MEI) pode pedir o salário-paternidade: 10 dias em 2027, 15 em 2028 e 20 a partir de 2029." : "Para nascimentos a partir de 1º/01/2027, o pai segurado (inclusive autônomo ou MEI) terá salário-paternidade. Até lá vale a licença-paternidade de 5 dias, só para quem tem carteira assinada.", rule:"R25"});
-  if(["nada"].includes(cat) || S.paga==="nunca") out.extra.push({txt:"Para começar a contribuir: a MEI paga pelo DAS; a autônoma pode pagar 11% do salário mínimo (plano simplificado); a dona de casa de baixa renda com CadÚnico pode pagar 5%. Pague sempre até o dia 15 do mês seguinte.", rule:"R26"});
+  if(cat==="nada" || S.paga==="nunca") out.extra.push({txt:"Para começar a contribuir: a MEI paga pelo DAS; a autônoma pode pagar 11% do salário mínimo (plano simplificado); a dona de casa de baixa renda com CadÚnico pode pagar 5%. Pague sempre até o dia 15 do mês seguinte.", rule:"R26"});
 
-  // ---- título
   if(!out.title){
     out.title = {ok:"Você provavelmente tem direito", warn:"Você pode ter direito, mas há pontos de atenção", no:"Pelas suas respostas, o INSS provavelmente vai negar"}[out.level];
     out.lead = {ok:"Suas respostas se encaixam nas regras do salário-maternidade. Separe os documentos e faça o pedido.", warn:"Algumas respostas dependem de análise ou de uma ação sua. Veja os pontos abaixo antes de pedir.", no:"Veja os motivos abaixo e os outros direitos que podem ajudar. Se discordar, você pode pedir mesmo assim e buscar a Defensoria."}[out.level];
   }
-  out.reasons.forEach(r=>(Array.isArray(r.rule)?r.rule:[r.rule]).forEach(k=>out.rulesUsed.add(k)));
-  if(out.value) out.rulesUsed.add(out.value.rule);
-  out.extra.forEach(e=>out.rulesUsed.add(e.rule));
   return out;
 }
 
-const basis = rule => `<span class="basis">${(Array.isArray(rule)?rule:[rule]).map(k=>R[k].f).join("; ")}</span>`;
+/* ---------- Resultado do PAI ---------- */
+function evaluatePai(){
+  const out=newOut(); const {why,lvl}=helpers(out);
+  const ev = parseDate(S.data), t = today(), isFuture = ev > t;
+  const cat = S.trabalho, novo = ev >= LEI_PAT, dp = diasPat(ev);
+  const limite = addYears(ev,5);
+  const sit = S.psit;
+  const especial = ["adosolo","semmae","faleceu"].includes(sit);
+  let beneficio = "Salário-paternidade", dias = dp;
+
+  // Situações especiais
+  if(sit==="adosolo"){
+    if(S.idade==="nao" && !novo){ lvl("no"); why("Pela regra em vigor até 2026, a adoção precisa ser de criança de até 12 anos para dar direito ao benefício de 120 dias.", "R39","n"); }
+    else if(!novo){ beneficio="Salário-maternidade"; dias=120; why("Quem adota sozinho já tem hoje direito a 120 dias de salário-maternidade, pago pelo INSS.", "R39","o"); }
+    else { dias=120; why("A partir de 2027, quando só o pai adota, o salário-paternidade equivale ao salário-maternidade: 120 dias.", "R35","o"); }
+  } else if(sit==="semmae"){
+    if(novo){ dias=120; why("Quando a mãe não consta no registro de nascimento, o salário-paternidade equivale ao salário-maternidade: 120 dias.", "R35","o"); }
+    else { lvl("warn"); dias=0; why("A regra que dá 120 dias ao pai quando a mãe não consta no registro só vale para nascimentos a partir de 1º/01/2027. Para datas anteriores, procure a Defensoria para avaliar o caso.", ["R35","R30"],"w"); }
+  } else if(sit==="faleceu"){
+    beneficio = novo?"Salário-maternidade ou salário-paternidade":"Salário-maternidade";
+    dias = 120;
+    why("Se a mãe tinha direito ao salário-maternidade, quem assume a criança recebe o benefício pelo período que faltava, desde que seja segurado do INSS. O pedido deve ser feito até o último dia do benefício dela.", "R36","o");
+    lvl("warn"); why("Esta é uma situação que merece atendimento individual. Procure o INSS ou a Defensoria o quanto antes.", "R36","w");
+  } else {
+    if(novo) why(`Para nascimentos ou adoções em ${ev.getFullYear()}, o salário-paternidade é de ${dp} dias.`, ["R25","R29"],"o");
+    else if(cat!=="clt"){ lvl("no"); out.title="Para esta data, a lei ainda não prevê benefício para você"; out.lead="Antes de 2027, só quem tem carteira assinada tem licença-paternidade paga. A nova lei vale para nascimentos a partir de 1º/01/2027."; why("Para nascimentos até 31/12/2026, o pai autônomo, MEI ou sem carteira não tem licença paga.", "R30","n"); }
+  }
+
+  // Empregado de empresa
+  if(cat==="clt"){
+    if(!novo && !especial){ lvl("info"); out.title="Você tem 5 dias de licença, pagos pela empresa"; out.lead="Para nascimentos até 31/12/2026, vale a regra antiga. Se a empresa for do Programa Empresa Cidadã, são 20 dias."; why("Licença-paternidade de 5 dias, mais 15 se a empresa for do Programa Empresa Cidadã.", "R30","o"); }
+    else {
+      why("Com carteira assinada, quem paga é a empresa, que depois é reembolsada pelo INSS.", "R38","o");
+      if(novo){
+        why("Você não pode ser demitido sem justa causa do início da licença até 1 mês depois do fim. Se for demitido depois de avisar a empresa e antes da licença, a indenização é em dobro.", "R32","o");
+        if(isFuture){ out.dates.push({v:fmt(addDays(ev,-30)), l:"Último dia para avisar a empresa, com o atestado da data provável do parto"}); why("Avise a empresa com pelo menos 30 dias de antecedência. Se o parto for antecipado, o afastamento é imediato e você avisa assim que puder.", "R31","o"); why("Se quiser emendar as férias no fim da licença, peça no mesmo prazo de 30 dias.", "R33","o"); }
+      }
+    }
+    out.value = valorTexto("clt",true);
+    out.where = ["Avise o RH da empresa por escrito e guarde uma cópia.", "Leve o atestado com a data provável do parto (ou a certidão da Vara da Infância, na adoção).", "Depois do nascimento, entregue a certidão de nascimento ou o termo de guarda.", "Se a empresa se recusar, procure o sindicato, a Defensoria ou um advogado."];
+  } else if(novo || especial){
+    if(!(sit==="semmae"&&!novo)) {
+      qualidade(out, ev, isFuture);
+      if(cat==="domestica") why("Como empregado doméstico com carteira, você está protegido pelo INSS e recebe diretamente dele.", ["R02","R28"],"o");
+      if(cat!=="nada" && !(["autonoma","mei","facultativa"].includes(cat)&&S.paga==="nunca")) out.value = valorTexto(cat,true);
+    }
+    out.where = (sit==="semmae"&&!novo) ? ["Procure a Defensoria Pública da União para avaliar o seu caso."]
+      : novo
+      ? ["O pedido deve ser feito ao INSS, pelo Meu INSS ou pela Central 135.", "A forma exata do pedido depende de regulamentação que o governo ainda vai publicar. Confira no Meu INSS a partir de dezembro de 2026.", "Separe desde já os documentos listados acima."]
+      : inssSteps("Salário-maternidade urbano");
+  }
+
+  // Documentos
+  if(novo||especial||cat==="clt"){
+  out.docs.push("Documento com foto e CPF");
+  out.docs.push(["adocao","adosolo"].includes(sit)?"Termo de guarda para fins de adoção ou nova certidão de nascimento":"Certidão de nascimento da criança");
+  if(cat==="clt"&&isFuture) out.docs.push("Atestado médico com a data provável do parto, para o aviso à empresa");
+  if(sit==="faleceu") out.docs.push("Certidão de óbito da mãe e documentos que mostrem que você assumiu a criança");
+  commonDocs(out);
+  }
+
+  // Datas
+  if(dias>0 && (novo||especial||cat==="clt")) out.dates.unshift({v:`${dias} dias`, l:`Duração do ${beneficio.toLowerCase()} para a sua situação`});
+  if((novo||especial) && !(cat==="clt"&&!especial) && dias>0) out.dates.push({v:fmt(limite), l:"Prazo final para pedir e ainda receber (5 anos)"});
+
+  // Condições
+  if(novo||cat==="clt"){
+    out.cond.push({txt:"Durante a licença, você precisa se afastar do trabalho, não pode ter outra atividade remunerada e deve participar dos cuidados com a criança. Se trabalhar no período, o benefício é suspenso.", rule:"R34"});
+    if(novo) out.cond.push({txt:"O benefício é suspenso ou negado quando há violência doméstica ou abandono material em relação à criança.", rule:"R37"});
+  }
+  // Outros
+  if(!especial) out.extra.push({txt:"Se o dinheiro da família só dá para uma contribuição, a da mãe vem primeiro: ela garante 120 dias de salário-maternidade.", rule:["R08","R26"]});
+  out.extra.push({txt:"A mãe também pode fazer esta consulta para ver o direito dela ao salário-maternidade.", rule:"R01"});
+  if(out.level==="no") out.extra.push({txt:"Procure o CRAS da sua cidade para fazer ou atualizar o CadÚnico e conhecer os programas de assistência social.", rule:"R24"});
+  if(cat==="nada"||S.paga==="nunca") out.extra.push({txt:"Para começar a contribuir: o MEI paga pelo DAS; o autônomo pode pagar 11% do salário mínimo (plano simplificado). Pague sempre até o dia 15 do mês seguinte.", rule:"R26"});
+
+  if(!out.title){
+    out.title = {ok:"Você provavelmente terá direito", warn:"Você pode ter direito, mas há pontos de atenção", no:"Pelas suas respostas, o benefício provavelmente não será concedido", info:"Veja como funciona no seu caso"}[out.level];
+    out.lead = {ok:`Suas respostas se encaixam nas regras. ${novo&&!especial?"Lembre que a lei só vale a partir de 1º/01/2027.":""}`, warn:"Algumas respostas dependem de análise ou de uma ação sua. Veja os pontos abaixo.", no:"Veja os motivos abaixo e o que a família pode fazer.", info:""}[out.level];
+  }
+  return out;
+}
+
+const rulesOf = r => Array.isArray(r)?r:[r];
+const basis = rule => `<span class="basis">${rulesOf(rule).map(k=>R[k].f).join("; ")}</span>`;
+const listSec = (title, items) => items.length?`<section class="sec"><h3>${title}</h3><ul class="list">${items.map(e=>`<li class="${e.cls||""}">${esc(e.txt)}${basis(e.rule)}</li>`).join("")}</ul></section>`:"";
 
 function result(){
-  const o = evaluate();
+  const o = PAI(S) ? evaluatePai() : evaluateMae();
   const chip = {ok:"Provável direito", warn:"Atenção", no:"Improvável", info:"Informação"}[o.level];
   app.innerHTML = `
   <div class="stack">
-    <div class="verdict ${o.level}"><span class="chip">${chip}</span><h2 id="qt" tabindex="-1">${esc(o.title)}</h2><p style="margin:0">${esc(o.lead)}</p></div>
+    <div class="verdict ${o.level}"><span class="chip">${chip}</span><h2 id="qt" tabindex="-1">${esc(o.title)}</h2>${o.lead?`<p style="margin:0">${esc(o.lead)}</p>`:""}</div>
 
-    <section class="sec"><h3>Por quê</h3>
-      <ul class="list">${o.reasons.map(r=>`<li class="${r.cls}">${esc(r.txt)}${basis(r.rule)}</li>`).join("")}</ul></section>
+    ${listSec("Por quê", o.reasons)}
 
-    ${o.dates.length?`<section class="sec"><h3>Datas importantes</h3><div class="dates">${o.dates.map(d=>`<div class="date"><div class="v">${d.v}</div><div class="l">${esc(d.l)}</div></div>`).join("")}</div>
-      <p class="small muted" style="margin:0">Quanto antes você pedir, mais rápido recebe.</p></section>`:""}
+    ${o.dates.length?`<section class="sec"><h3>Datas importantes</h3><div class="dates">${o.dates.map(d=>`<div class="date"><div class="v">${d.v}</div><div class="l">${esc(d.l)}</div></div>`).join("")}</div></section>`:""}
 
-    ${o.value?`<section class="sec"><h3>Quanto você deve receber</h3><div class="card">${esc(o.value.txt)}${basis(o.value.rule)}</div></section>`:""}
+    ${o.value?`<section class="sec"><h3>Quanto deve receber</h3><div class="card">${esc(o.value.txt)}${basis(o.value.rule)}</div></section>`:""}
+
+    ${listSec("Condições durante a licença", o.cond)}
 
     ${o.docs.length?`<section class="sec"><h3>Documentos para separar</h3><ul class="checks">${o.docs.map(d=>`<li>${esc(d)}</li>`).join("")}</ul></section>`:""}
 
-    <section class="sec"><h3>${S.trabalho==="clt"?"O que fazer":"Onde e como pedir"}</h3><ol class="steps">${o.where.map(w=>`<li>${esc(w)}</li>`).join("")}</ol>
-      <p class="small muted" style="margin:0">O pedido ao INSS é gratuito. Desconfie de quem cobrar para "liberar" o benefício.</p></section>
+    ${o.where.length?`<section class="sec"><h3>${S.trabalho==="clt"?"O que fazer":"Onde e como pedir"}</h3><ol class="steps">${o.where.map(w=>`<li>${esc(w)}</li>`).join("")}</ol>
+      <p class="small muted" style="margin:0">O pedido ao INSS é gratuito. Desconfie de quem cobrar para "liberar" o benefício.</p></section>`:""}
 
-    ${o.extra.length?`<section class="sec"><h3>Outros direitos para você</h3><ul class="list">${o.extra.map(e=>`<li>${esc(e.txt)}${basis(e.rule)}</li>`).join("")}</ul></section>`:""}
+    ${listSec("E o pai?", o.pai)}
+    ${listSec(PAI(S)?"Para a família":"Outros direitos para você", o.extra)}
 
     <section class="sec"><h3>Precisa de ajuda?</h3>
       <div class="contact"><b>INSS: Central 135</b><span class="small muted">Segunda a sábado, das 7h às 22h. Ou pelo Meu INSS: meu.inss.gov.br</span></div>
       <div class="contact"><b>Defensoria Pública da União</b><span class="small muted">Atendimento jurídico gratuito para quem não pode pagar advogado, inclusive em causas contra o INSS: dpu.def.br</span></div>
       <div class="contact"><b>CRAS do seu município</b><span class="small muted">CadÚnico e programas de assistência social.</span></div>
+      <div class="contact"><b>CREAS do seu município · Ligue 180</b><span class="small muted">Apoio a mulheres em situação de violência. O Ligue 180 é gratuito e funciona 24 horas.</span></div>
     </section>
 
-    <div class="warnbox"><b>Importante:</b> este resultado é uma orientação geral a partir das suas respostas. Quem decide é o INSS, depois de analisar os documentos. Se tiver dúvida, procure o INSS, a Defensoria Pública ou um advogado.</div>
+    <div class="warnbox"><b>Importante:</b> este resultado é uma orientação geral a partir das suas respostas. Quem decide é o INSS (ou a empresa, no caso de quem tem carteira assinada), depois de analisar os documentos. Se tiver dúvida, procure o INSS, a Defensoria Pública ou um advogado.</div>
 
     <details><summary>Ver suas respostas</summary><div class="small">${visible().map(q=>`<p><b>${esc(val(q.t))}</b><br>${esc(answerText(q))}</p>`).join("")}</div></details>
 
@@ -513,8 +656,9 @@ function answerText(q){
   const v=S[q.id];
   if(q.type==="date") return v?fmt(parseDate(v)):"-";
   if(q.type==="month"){ if(!v) return "-"; const [y,m]=v.split("-"); return `${MESES[+m-1]} de ${y}`; }
-  if(q.type==="multi") return (v&&v.length)? q.opts.filter(o=>v.includes(o[0])).map(o=>o[1]).join("; ") : "Nenhuma";
-  const o=q.opts.find(o=>o[0]===v); return o?o[1]:"-";
+  const opts=val(q.opts);
+  if(q.type==="multi") return (v&&v.length)? opts.filter(o=>v.includes(o[0])).map(o=>o[1]).join("; ") : "Nenhuma";
+  const o=opts.find(o=>o[0]===v); return o?o[1]:"-";
 }
 
 function rules(){
@@ -523,7 +667,7 @@ function rules(){
   <div class="stack">
     <div class="eyebrow">Quadro de requisitos</div>
     <h2 id="qt" tabindex="-1">As regras usadas na consulta</h2>
-    <p class="muted">Cada orientação que aparece no resultado vem de uma destas regras, com o seu fundamento legal.</p>
+    <p class="muted">Cada orientação que aparece no resultado vem de uma destas regras, com o seu fundamento legal. As regras R25 e R28 a R38 tratam do salário-paternidade (Lei 15.371/2026, em vigor a partir de 1º/01/2027).</p>
     <div class="tablewrap"><table><thead><tr><th>Regra</th><th>O que diz</th><th>Fundamento</th></tr></thead><tbody>
       ${Object.entries(R).map(([k,r])=>`<tr><td><code>${k}</code></td><td>${esc(r.t)}</td><td class="muted">${esc(r.f)}</td></tr>`).join("")}
     </tbody></table></div>
@@ -535,6 +679,7 @@ function rules(){
 document.getElementById("btnRules").onclick=rules;
 
 intro();
+
 </script>
 
 </body>

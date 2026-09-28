@@ -2,13 +2,13 @@
 
 Roteiro de consulta para celular usado no **Projeto de Prática Extensionista em Seguridade Social** (Curso de Direito, Universidade Presbiteriana Mackenzie), de João Henrique Abrantes Camargo.
 
-A página faz algumas perguntas sobre a situação de trabalho e contribuição da interessada e indica se há provável direito ao salário-maternidade, quais documentos reunir, onde fazer o pedido e quais prazos observar. Também sinaliza outros benefícios e as vias assistenciais.
+A página faz algumas perguntas sobre a situação de trabalho e contribuição da interessada e indica se há provável direito ao salário-maternidade (e, para o pai, ao salário-paternidade da Lei 15.371/2026), quais documentos reunir, onde fazer o pedido e quais prazos observar. Também sinaliza outros benefícios e as vias assistenciais.
 
 ## Como funciona
 
 - É um único arquivo, `index.html`, sem servidor e sem banco de dados.
 - As respostas ficam só na memória do navegador: nada é salvo, enviado ou coletado (LGPD, Lei 13.709/2018).
-- Cada orientação exibida cita uma regra do quadro de requisitos (R01 a R27), com o fundamento legal. O quadro completo aparece no botão **"Ver as regras"**.
+- Cada orientação exibida cita uma regra do quadro de requisitos (R01 a R39), com o fundamento legal. O quadro completo aparece no botão **"Ver as regras"**.
 
 ## Aviso
 
