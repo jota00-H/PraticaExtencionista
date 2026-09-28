@@ -13,3 +13,11 @@ A página faz algumas perguntas sobre a situação de trabalho e contribuição 
 ## Aviso
 
 Orientação de caráter geral. Não substitui o atendimento pelo INSS, pela Defensoria Pública ou por profissional habilitado.
+
+## Folder impresso
+
+A pasta `folder/` tem o folder trifold (A4 paisagem, frente e verso) com o QR code que leva a esta página.
+
+- `folder.html`: layout do folder
+- `build.py`: gera o PDF (`pip install playwright qrcode` e depois `python build.py "URL-DA-PÁGINA"`)
+- `Folder_Salario-Maternidade.pdf`: versão pronta para impressão

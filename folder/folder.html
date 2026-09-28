@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Folder — Salário-maternidade</title>
+<style>
+@font-face{font-family:Nunito;font-weight:400;src:url(fonts/nunito-latin-400-normal.woff2)}
+@font-face{font-family:Nunito;font-weight:600;src:url(fonts/nunito-latin-600-normal.woff2)}
+@font-face{font-family:Nunito;font-weight:700;src:url(fonts/nunito-latin-700-normal.woff2)}
+@font-face{font-family:Nunito;font-weight:800;src:url(fonts/nunito-latin-800-normal.woff2)}
+@font-face{font-family:Nunito;font-weight:900;src:url(fonts/nunito-latin-900-normal.woff2)}
+@font-face{font-family:Fraunces;font-weight:700;src:url(fonts/fraunces-latin-700-normal.woff2)}
+@font-face{font-family:Fraunces;font-weight:800;src:url(fonts/fraunces-latin-800-normal.woff2)}
+
+@page{size:297mm 210mm;margin:0}
+:root{
+  --ink:#27303A; --muted:#5B6570;
+  --teal:#1E5B58; --teal-2:#2F7C77; --teal-soft:#DCEBE8;
+  --coral:#D9694A; --coral-soft:#F8E1D8;
+  --cream:#FBF7F1; --sand:#F2E8DA; --line:#E4D8C7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff}
+body{font-family:Nunito,sans-serif;color:var(--ink);font-size:9.3pt;line-height:1.4;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.sheet{width:297mm;height:210mm;display:grid;grid-template-columns:99mm 99mm 99mm;page-break-after:always;overflow:hidden}
+.sheet:last-child{page-break-after:auto}
+.panel{position:relative;padding:9mm 8mm 8mm;height:210mm;overflow:hidden;background:var(--cream)}
+.panel + .panel{border-left:0.2mm dashed #e9dfd1}
+
+h2{font-family:Fraunces,serif;font-weight:800;font-size:17pt;line-height:1.08;color:var(--teal);margin-bottom:3mm;letter-spacing:-.2pt}
+h3{font-weight:900;font-size:10pt;color:var(--teal);margin:3.2mm 0 1.2mm;text-transform:none}
+.kicker{font-weight:900;font-size:7pt;letter-spacing:1.4pt;text-transform:uppercase;color:var(--coral);margin-bottom:1.5mm}
+p{margin-bottom:1.8mm}
+strong{font-weight:800}
+.small{font-size:7.2pt;color:var(--muted);line-height:1.35}
+ul.clean{list-style:none}
+ul.clean li{position:relative;padding-left:4.2mm;margin-bottom:1.3mm}
+ul.clean li::before{content:"";position:absolute;left:0;top:1.35mm;width:2mm;height:2mm;border-radius:50%;background:var(--coral)}
+.box{border-radius:3mm;padding:3mm 3.4mm;margin:2.4mm 0}
+.box.teal{background:var(--teal-soft)}
+.box.coral{background:var(--coral-soft)}
+.box.dark{background:var(--teal);color:#fff}
+.box.dark h3,.box.dark .kicker{color:#fff}
+.box.dark .kicker{opacity:.8}
+.box.line{border:0.35mm solid var(--line);background:#fff}
+
+/* ---------- CAPA ---------- */
+.cover{background:var(--teal);color:#fff;padding:0}
+.cover .top{padding:10mm 9mm 0}
+.cover .inst{font-size:6.8pt;font-weight:800;letter-spacing:1.2pt;text-transform:uppercase;opacity:.85}
+.cover .inst span{display:block;font-weight:600;letter-spacing:.4pt;text-transform:none;opacity:.9;margin-top:.6mm}
+.cover h1{font-family:Fraunces,serif;font-weight:800;font-size:25pt;line-height:1.02;margin:9mm 0 4mm;letter-spacing:-.4pt}
+.cover h1 em{font-style:normal;color:#FFC9B5}
+.cover .lead{font-size:9.6pt;line-height:1.4;font-weight:600;max-width:78mm}
+.badge{display:inline-block;background:var(--coral);color:#fff;font-weight:900;font-size:8pt;padding:1.6mm 3mm;border-radius:10mm;margin-top:5mm;letter-spacing:.2pt}
+.art{position:absolute;left:0;right:0;bottom:44mm;height:52mm}
+.qrzone{position:absolute;left:0;right:0;bottom:0;height:44mm;background:var(--cream);color:var(--ink);display:flex;align-items:center;gap:4.5mm;padding:0 8mm}
+.qr{width:31mm;height:31mm;flex:none;background:#fff;border-radius:2mm;display:flex;align-items:center;justify-content:center;padding:1.5mm}
+.qr img{width:100%;height:100%}
+.qr.placeholder{border:0.5mm dashed var(--teal-2);font-size:6.5pt;text-align:center;color:var(--teal);font-weight:800;line-height:1.25;padding:2mm}
+.qrtext .t{font-family:Fraunces,serif;font-weight:800;font-size:12pt;color:var(--teal);line-height:1.1;margin-bottom:1.5mm}
+.qrtext p{font-size:7.6pt;margin:0 0 1mm}
+.qrtext .priv{font-size:6.6pt;color:var(--muted)}
+
+/* ---------- categorias ---------- */
+.cat{display:grid;grid-template-columns:9mm 1fr;gap:2.6mm;align-items:start;padding:2.1mm 0;border-bottom:0.25mm solid var(--line)}
+.cat:last-of-type{border-bottom:0}
+.ico{width:9mm;height:9mm;border-radius:50%;background:var(--teal-soft);display:flex;align-items:center;justify-content:center}
+.ico svg{width:5.4mm;height:5.4mm;stroke:var(--teal);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cat b{display:block;font-weight:900;font-size:9.3pt;color:var(--ink);line-height:1.2}
+.cat span{font-size:8.2pt;color:var(--muted);line-height:1.3;display:block}
+
+/* ---------- fatos em números ---------- */
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:2.4mm;margin:2mm 0 1mm}
+.fact{background:#fff;border:0.35mm solid var(--line);border-radius:3mm;padding:2.6mm 2.8mm}
+.fact .n{font-family:Fraunces,serif;font-weight:800;font-size:17pt;line-height:1;color:var(--coral)}
+.fact .n small{font-size:9pt}
+.fact .d{font-size:7.3pt;line-height:1.28;margin-top:1mm}
+
+/* ---------- tabela graça ---------- */
+table{width:100%;border-collapse:collapse;font-size:7.7pt;margin:1.5mm 0 1mm}
+th{background:var(--teal);color:#fff;font-weight:800;text-align:left;padding:1.5mm 2mm;font-size:7.3pt}
+th:first-child{border-radius:2mm 0 0 0} th:last-child{border-radius:0 2mm 0 0}
+td{font-size:8.2pt;padding:1.6mm 2mm;border-bottom:0.25mm solid var(--line);vertical-align:top;background:#fff}
+td:last-child{font-weight:800;color:var(--teal);white-space:nowrap}
+
+/* ---------- passos ---------- */
+.steps{counter-reset:s;margin-top:1mm}
+.step{display:grid;grid-template-columns:7mm 1fr;gap:2.4mm;margin-bottom:2.3mm}
+.step::before{counter-increment:s;content:counter(s);width:7mm;height:7mm;border-radius:50%;background:var(--coral);color:#fff;font-weight:900;font-size:9pt;display:flex;align-items:center;justify-content:center}
+.step b{display:block;font-weight:900;font-size:9.3pt;line-height:1.2}
+.step span{font-size:8.4pt;color:var(--ink);display:block;line-height:1.32}
+.checks{list-style:none;columns:1}
+.checks li{padding-left:5mm;position:relative;margin-bottom:1.1mm;font-size:8.4pt}
+.checks li::before{content:"";position:absolute;left:0;top:.9mm;width:2.6mm;height:2.6mm;border:0.4mm solid var(--teal-2);border-radius:.6mm;background:#fff}
+
+/* ---------- paternidade ---------- */
+.timeline{display:flex;gap:1.6mm;margin:2mm 0 1.4mm}
+.tl{flex:1;background:rgba(255,255,255,.12);border-radius:2mm;padding:1.8mm 1mm;text-align:center}
+.tl .y{font-size:6.8pt;font-weight:800;opacity:.85}
+.tl .v{font-family:Fraunces,serif;font-weight:800;font-size:13pt;line-height:1.05}
+.tl .v small{font-family:Nunito;font-size:6.8pt;font-weight:700}
+
+/* ---------- contatos ---------- */
+.contact{display:grid;grid-template-columns:9mm 1fr;gap:2.6mm;align-items:start;margin-bottom:2.6mm}
+.contact b{display:block;font-weight:900;font-size:9.5pt}
+.contact span{font-size:8.4pt;color:var(--muted);display:block;line-height:1.3}
+.warn{border-left:1.2mm solid var(--coral);background:#fff;padding:2.6mm 3mm;border-radius:0 2mm 2mm 0;font-size:8pt;line-height:1.35;margin:3mm 0}
+.warn b{color:var(--coral)}
+.credit{position:absolute;left:8mm;right:8mm;bottom:8mm;border-top:0.3mm solid var(--line);padding-top:2.6mm}
+.credit .p{font-weight:900;font-size:7.6pt;color:var(--teal)}
+.legal{font-size:6.4pt;color:var(--muted);line-height:1.35;margin-top:1.4mm}
+</style>
+</head>
+<body>
+
+<!-- ===================== LADO EXTERNO ===================== -->
+<section class="sheet">
+
+  <!-- Painel: aba interna (lida ao abrir a capa) -->
+  <div class="panel">
+    <div class="kicker">Para além do salário-maternidade</div>
+    <h2>Outros direitos que podem ser seus</h2>
+
+    <h3>Gravidez de risco e precisou parar?</h3>
+    <p>Se o médico mandou você se afastar do trabalho durante a gestação, pode caber o <strong>auxílio por incapacidade temporária</strong> (o antigo auxílio-doença). O pedido também é feito no INSS e passa por perícia médica. Confira os requisitos antes de pedir.</p>
+
+    <h3>Tem carteira assinada e renda baixa?</h3>
+    <p>O <strong>salário-família</strong> é um valor pago por filho de até 14 anos para empregadas e empregadas domésticas de baixa renda. Peça ao empregador.</p>
+
+    <h3>Não está protegida pelo INSS?</h3>
+    <p>Mesmo sem direito ao benefício previdenciário, você não está sozinha. Procure o <strong>CRAS</strong> do seu município para fazer ou atualizar o <strong>Cadastro Único</strong> e conhecer os programas de assistência social disponíveis.</p>
+
+    <div class="box coral">
+      <h3 style="margin-top:0">Ainda não contribui? Dá para começar</h3>
+      <ul class="clean" style="font-size:8.5pt">
+        <li><strong>MEI:</strong> o boleto mensal (DAS) já inclui a contribuição ao INSS.</li>
+        <li><strong>Dona de casa de baixa renda</strong> inscrita no CadÚnico: contribuição de 5% do salário mínimo.</li>
+        <li><strong>Autônoma:</strong> plano simplificado de 11% do salário mínimo, ou 20% sobre o que ganha.</li>
+      </ul>
+      <p class="small" style="margin:1.2mm 0 0">Pagando em dia, você fica protegida para o salário-maternidade e outros benefícios.</p>
+    </div>
+  </div>
+
+  <!-- Painel: contracapa -->
+  <div class="panel">
+    <div class="kicker">Precisa de ajuda?</div>
+    <h2>Onde buscar atendimento</h2>
+
+    <div class="contact">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></svg></div>
+      <div><b>INSS — Central 135</b><span>Segunda a sábado, das 7h às 22h. Ligação gratuita de telefone fixo.</span></div>
+    </div>
+    <div class="contact">
+      <div class="ico"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+      <div><b>Aplicativo Meu INSS</b><span>Ou pelo site <strong>meu.inss.gov.br</strong>. Entre com a sua conta gov.br.</span></div>
+    </div>
+    <div class="contact">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 4H4z"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3 21h18"/></svg></div>
+      <div><b>Defensoria Pública da União</b><span>Atendimento jurídico gratuito para quem não pode pagar advogado, inclusive em causas contra o INSS.</span></div>
+    </div>
+    <div class="contact">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg></div>
+      <div><b>CRAS do seu município</b><span>Cadastro Único e programas de assistência social.</span></div>
+    </div>
+
+    <div class="warn"><b>Atenção:</b> este material traz orientação de caráter geral e <strong>não substitui</strong> o atendimento pelo INSS, pela Defensoria Pública ou por advogado. Cada caso deve ser analisado individualmente. <strong>O pedido ao INSS é gratuito</strong> e pode ser feito por você mesma: desconfie de quem cobrar para “liberar” o benefício.</div>
+
+    <div class="credit">
+      <div class="p">Projeto de Prática Extensionista em Seguridade Social</div>
+      <div class="small">Curso de Direito — Universidade Presbiteriana Mackenzie<br>Aluno: João Henrique Abrantes Camargo</div>
+      <div class="legal"><strong>Base legal:</strong> Constituição Federal, arts. 6º, 194 e 201, II · Lei nº 8.213/1991, arts. 15, 25, 71 a 73 · STF, ADIs 2.110 e 2.111 · IN PRES/INSS nº 188/2025 · Lei nº 12.873/2013 · Lei nº 15.371/2026 (salário-paternidade).</div>
+    </div>
+  </div>
+
+  <!-- Painel: CAPA -->
+  <div class="panel cover">
+    <div class="top">
+      <div class="inst">Prática Extensionista · Direito<span>Universidade Presbiteriana Mackenzie</span></div>
+      <h1>Trabalha por conta própria? <em>Você também tem direito</em> ao salário-maternidade.</h1>
+      <p class="lead">Autônoma, MEI, dona de casa que contribui, trabalhadora rural ou quem saiu do emprego há pouco tempo: entenda como pedir o seu benefício no INSS.</p>
+      <div class="badge">Não precisa mais de 10 contribuições</div>
+    </div>
+
+    <svg class="art" viewBox="0 0 330 173" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <circle cx="250" cy="96" r="78" fill="#2F7C77"/>
+      <circle cx="292" cy="40" r="26" fill="#D9694A"/>
+      <circle cx="70" cy="150" r="46" fill="#2A6E6A"/>
+      <!-- figura materna estilizada -->
+      <g transform="translate(205 48)">
+        <circle cx="42" cy="18" r="15" fill="#FBF7F1"/>
+        <path d="M14 118 C14 70 26 44 42 44 C60 44 72 70 72 118 Z" fill="#FBF7F1"/>
+        <circle cx="30" cy="70" r="11" fill="#FFC9B5"/>
+        <path d="M18 80 C22 92 40 96 52 86" stroke="#1E5B58" stroke-width="5" fill="none" stroke-linecap="round"/>
+      </g>
+      <path d="M110 50 l6 -6 l6 6 l-6 6z" fill="#FFC9B5"/>
+      <path d="M150 20 l4 -4 l4 4 l-4 4z" fill="#FBF7F1" opacity=".6"/>
+    </svg>
+
+    <div class="qrzone">
+      __QR__
+      <div class="qrtext">
+        <div class="t">Descubra em 2 minutos se você tem direito</div>
+        <p>Aponte a câmera do celular para o código e responda a algumas perguntas simples. Não precisa instalar aplicativo.</p>
+        <p class="priv">Nenhum dado pessoal é coletado ou armazenado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LADO INTERNO ===================== -->
+<section class="sheet">
+
+  <!-- Painel interno 1 -->
+  <div class="panel">
+    <div class="kicker">Quem pode receber</div>
+    <h2>O salário-maternidade não é só para quem tem carteira assinada</h2>
+    <p>Quem tem carteira assinada recebe pela empresa. <strong>Quem trabalha por conta própria precisa pedir diretamente ao INSS</strong>, e muitas mulheres deixam de receber por não saber disso. Podem ter direito:</p>
+
+    <div class="cat">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4z"/><path d="M9 7V5h6v2"/></svg></div>
+      <div><b>Autônoma (contribuinte individual)</b><span>Manicure, diarista, costureira, vendedora, cuidadora e outras que pagam o próprio INSS.</span></div>
+    </div>
+    <div class="cat">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 9l2-5h14l2 5"/><path d="M4 9v11h16V9"/><path d="M3 9h18"/><path d="M10 20v-5h4v5"/></svg></div>
+      <div><b>Microempreendedora individual (MEI)</b><span>Com o boleto mensal (DAS) em dia.</span></div>
+    </div>
+    <div class="cat">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg></div>
+      <div><b>Contribuinte facultativa</b><span>Dona de casa, estudante ou quem não tem renda própria, mas paga o INSS.</span></div>
+    </div>
+    <div class="cat">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 21V11"/><path d="M12 11C12 6 8 4 4 4c0 5 3 7 8 7z"/><path d="M12 14c0-4 3-6 8-6 0 4-3 6-8 6z"/></svg></div>
+      <div><b>Trabalhadora rural (segurada especial)</b><span>Agricultura familiar, pesca artesanal e atividades parecidas, mesmo sem ter contribuído, se comprovar o trabalho no campo.</span></div>
+    </div>
+    <div class="cat">
+      <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+      <div><b>Quem parou de trabalhar ou de contribuir há pouco tempo</b><span>Durante um período, a proteção do INSS continua. Veja a tabela ao lado.</span></div>
+    </div>
+
+    <div class="box teal" style="margin-top:3mm">
+      <p style="margin:0;font-size:8.5pt">Também vale para <strong>adoção</strong> ou guarda para fins de adoção de criança de até 12 anos.</p>
+    </div>
+  </div>
+
+  <!-- Painel interno 2 -->
+  <div class="panel">
+    <div class="kicker">O que mudou</div>
+    <h2>Carência acabou. O que ainda importa é estar protegida.</h2>
+
+    <div class="box dark">
+      <p style="margin:0;font-size:8pt">O Supremo Tribunal Federal (ADIs 2.110 e 2.111) decidiu que a exigência de <strong>10 contribuições</strong> para autônomas, facultativas e trabalhadoras rurais era inconstitucional. O INSS já aplica a decisão (IN nº 188/2025).</p>
+    </div>
+
+    <p>Hoje, o principal requisito é ter a <strong>qualidade de segurada</strong> na data do parto ou da adoção. Na prática, isso significa estar contribuindo ou ainda estar dentro do <strong>período de graça</strong>, o prazo em que a proteção continua mesmo depois de parar de pagar.</p>
+
+    <table>
+      <tr><th>Sua situação</th><th>Proteção continua por</th></tr>
+      <tr><td>Parou de pagar como facultativa</td><td>6 meses</td></tr>
+      <tr><td>Parou de pagar como autônoma ou MEI</td><td>12 meses</td></tr>
+      <tr><td>Saiu do emprego com carteira assinada</td><td>12 meses</td></tr>
+    </table>
+    <p class="small">Em alguns casos, o prazo de 12 meses pode chegar a 24 ou 36 meses (por exemplo, para quem tem mais de 120 contribuições ou comprova desemprego). Vale confirmar no INSS.</p>
+
+    <h3>Quanto tempo e quanto recebe</h3>
+    <div class="facts">
+      <div class="fact"><div class="n">120 <small>dias</small></div><div class="d">de benefício no parto, na adoção e também em caso de natimorto.</div></div>
+      <div class="fact"><div class="n">28 <small>dias</small></div><div class="d">antes do parto: a partir daí o benefício já pode começar, com atestado médico.</div></div>
+    </div>
+    <ul class="clean" style="font-size:8.4pt;margin-top:2mm">
+      <li><strong>Autônoma e facultativa:</strong> média das últimas contribuições, nunca menos que 1 salário mínimo.</li>
+      <li><strong>Trabalhadora rural e MEI:</strong> em regra, 1 salário mínimo.</li>
+      <li><strong>Aborto não criminoso:</strong> 2 semanas de benefício.</li>
+    </ul>
+  </div>
+
+  <!-- Painel interno 3 -->
+  <div class="panel">
+    <div class="kicker">Passo a passo</div>
+    <h2>Como pedir o seu benefício</h2>
+
+    <div class="steps">
+      <div class="step"><div><b>Entre no Meu INSS</b><span>Pelo aplicativo, pelo site ou pela Central 135.</span></div></div>
+      <div class="step"><div><b>Clique em “Novo pedido”</b><span>Busque por “salário-maternidade” e escolha a opção urbana ou rural.</span></div></div>
+      <div class="step"><div><b>Envie os documentos</b><span>Fotos legíveis, tiradas pelo próprio celular, são aceitas.</span></div></div>
+      <div class="step"><div><b>Acompanhe o pedido</b><span>Em “Consultar pedidos”. Se o INSS pedir algo a mais (exigência), responda dentro do prazo.</span></div></div>
+    </div>
+
+    <h3>Separe estes documentos</h3>
+    <ul class="checks">
+      <li>Documento com foto e CPF</li>
+      <li>Certidão de nascimento da criança (ou atestado médico, se pedir antes do parto)</li>
+      <li>Termo de guarda ou de adoção, se for o caso</li>
+      <li>Comprovantes das contribuições (guias pagas ou boletos do MEI)</li>
+      <li>Trabalhadora rural: documentos que provem o trabalho no campo, como notas de venda da produção, contratos ou declarações</li>
+    </ul>
+
+    <div class="box coral">
+      <p style="margin:0;font-size:8.5pt"><strong>Perdeu o prazo? Talvez não.</strong> O pedido pode ser feito mesmo depois que o bebê nasceu, em regra até <strong>5 anos</strong> após o parto. Mas não deixe para depois.</p>
+    </div>
+
+    <div class="box dark" style="margin-top:2.6mm">
+      <div class="kicker">Novidade a partir de 2027</div>
+      <p style="margin:0 0 .5mm;font-size:7.8pt">A Lei nº 15.371/2026 criou o <strong>salário-paternidade</strong>, pago pelo INSS também a pais autônomos e MEIs:</p>
+      <div class="timeline">
+        <div class="tl"><div class="y">2027</div><div class="v">10 <small>dias</small></div></div>
+        <div class="tl"><div class="y">2028</div><div class="v">15 <small>dias</small></div></div>
+        <div class="tl"><div class="y">2029*</div><div class="v">20 <small>dias</small></div></div>
+      </div>
+      <p style="margin:0;font-size:6.5pt;opacity:.85">*A etapa de 20 dias depende do cumprimento de metas fiscais.</p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
